@@ -27,8 +27,8 @@ def Your_score(score):
     value = score_font.render("Ваш счет:" + str(score), True, yellow)
     dis.blit(value, [0, 0])
 
-def our_snake(snake_block, snake_list):
-    for x in snake_list: 
+def our_snake(snake_block, snake_List):
+    for x in snake_List: 
         pygame.draw.rect(dis, black, [x[0], x[1], snake_block, snake_block])
 
 def messege(msg, color):
@@ -75,8 +75,33 @@ for event in pygame.event.get():
         elif event.key == pygame.K_DOWN: 
             x1_change = snake_block
             y1_change = 0
+    if x1 >= dis_widht or x1_change < 0 or y1_change >= dis_height or y1_change < 0: 
+        game_close = True
+        x1_change += x1_change
+        y1_change += y1_change
+        dis.fill(blue)
+pygame.draw.rect(dis, green, [foodx, foody, snake_block, snake_block]) 
+snake_Head = [] 
+snake_Head.append(x1_change) 
+snake_Head.append(y1_change) 
+snake_List.append(snake_Head) 
+if len(snake_List) > Length_of_snake: 
+    del snake_List[0]
+for x in snake_List[:-1]: 
+    if x == snake_Head: 
+        game_close = True
+our_snake(snake_block, snake_List)
+Your_score(Lenght_of_snake - 1)
+pygame.display.update()
+if x1_change == foodx and y1_change == foody: 
+    foodx = round(random.randrange(0, dis_widht - snake_block) / 10.0) * 10.0
+    foody = round(random.randrange(0, dis_height - snake_block) / 10.0) * 10.0 
+    Lenght_of_snake += 1
+clock.tick(snack_speed)
+pygame.quit()
+quit()
+gameLoop()
 
 
-
-*пока что так*
+*это конечный код*
 
